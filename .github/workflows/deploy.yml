@@ -1,0 +1,54 @@
+name: Test & Deploy project
+on: [push]
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install node.js
+        uses: actions/setup-node@v3
+      - name: Install dependencies
+        run: npm i --force
+      - name: Linting
+        run: npm run lint
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: npm i --force
+      - name: Testing
+        run: npm run test
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: npm i --force
+      - name: Building project
+        run: npm run build
+  deploy:
+    needs: [lint, test, build]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+      - name: Install node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Installing dependencies
+        run: npm i --force
+      - name: Deploying
+        run: echo "Deploying"
