@@ -1,0 +1,8 @@
+name: Create issue
+on: issues
+  type: opened
+jobs:
+  echo-github:
+    steps:
+      - name: Display github object
+        run: echo "${{ toJSON(github) }}"
